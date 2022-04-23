@@ -22,4 +22,15 @@ router.post("/", async (req, res) => {
     }
 })
 
+
+router.get("/:token", (req,res) => {
+    const token = req.params.token
+    try {
+        jwt.verify(token, process.env.CHAVE_PUBLICA)
+        res.json({ message: "Token válido" })
+    } catch (error) {
+        res.status(401).json({ message: "Token inválido" })
+    }
+})
+
 export default router
